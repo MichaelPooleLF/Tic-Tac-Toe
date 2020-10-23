@@ -1,0 +1,21 @@
+.board-row {
+  height: 30vh;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+i {
+  font-size: 10rem;
+}
+
+.x {
+  color: red;
+}
+
+.o {
+  color: green;
+}
