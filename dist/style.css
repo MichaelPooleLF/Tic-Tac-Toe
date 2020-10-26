@@ -8,6 +8,30 @@
   align-items: center;
 }
 
+div.cell {
+  border-width: 10px;
+}
+
+.b-left {
+  border-left: 5px groove whitesmoke
+}
+
+.b-right {
+  border-right: 5px groove whitesmoke
+}
+
+.b-top {
+  border-top: 5px groove whitesmoke
+}
+
+.b-bottom {
+  border-bottom: 5px groove whitesmoke
+}
+
+.my-border {
+  border: 5px groove whitesmoke
+}
+
 i {
   font-size: 10rem;
 }
