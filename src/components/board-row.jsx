@@ -1,20 +1,21 @@
 import React from 'react';
+import Cell from './cell';
 
 function BoardRow(props) {
   if (props.position === 'center') {
     return (
       <div className="row board-row">
-        <div className="cell col-4 text-center b-top b-bottom centered"></div>
-        <div className="cell col-4 text-center my-border centered"></div>
-        <div className="cell col-4 text-center b-top b-bottom centered"></div>
+        <Cell border="b-top b-bottom"/>
+        <Cell border="my-border" />
+        <Cell border="b-top b-bottom" />
       </div>
     );
   } else {
     return (
       <div className="row board-row">
-        <div className="cell col-4 text-center centered"></div>
-        <div className="cell col-4 text-center b-left b-right centered"></div>
-        <div className="cell col-4 text-center centered"></div>
+        <Cell border="" />
+        <Cell border="b-left b-right" />
+        <Cell border="" />
       </div>
     );
   }
