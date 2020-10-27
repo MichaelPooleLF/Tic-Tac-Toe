@@ -9,11 +9,12 @@ class Board extends React.Component {
         ['', '', ''],
         ['', '', ''],
         ['', '', '']
-      ]
+      ],
+      isX: true
     };
   }
 
-  handleClick() {
+  handleClick(event) {
     console.log('click');
   }
 
@@ -23,8 +24,8 @@ class Board extends React.Component {
         <h1 className="text-center text-white">TIC TAC TOE</h1>
         <div className="container">
           <BoardRow position="top" values={this.state.currentBoard[0]} handleClick={this.handleClick}/>
-          <BoardRow position="center" values={this.state.currentBoard[0]} handleClick={this.handleClick}/>
-          <BoardRow position="bottom" values={this.state.currentBoard[0]} handleClick={this.handleClick}/>
+          <BoardRow position="center" values={this.state.currentBoard[1]} handleClick={this.handleClick}/>
+          <BoardRow position="bottom" values={this.state.currentBoard[2]} handleClick={this.handleClick}/>
         </div>
       </>
     );
