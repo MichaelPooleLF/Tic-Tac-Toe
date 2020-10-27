@@ -10,6 +10,7 @@
 
 div.cell {
   border-width: 10px;
+  cursor: pointer;
 }
 
 .b-left {
