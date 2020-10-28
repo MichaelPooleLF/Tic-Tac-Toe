@@ -16,28 +16,108 @@ class Board extends React.Component {
         [false, false, false]
       ],
       isX: true,
-      moveCounter: 0
+      moveCounter: 0,
+      rows: [0, 0, 0],
+      columns: [0, 0, 0],
+      diagonals: [0, 0],
+      checked: {
+        row: [false, false, false],
+        column: [false, false, false],
+        diagonal: [false, false]
+      }
     };
     this.handleClick = this.handleClick.bind(this);
     this.setBoard = this.setBoard.bind(this);
   }
 
   checkGameOver() {
+    const valuesInRows = this.state.rows.slice();
+    const valuesInCols = this.state.columns.slice();
+    const valuesInDiags = this.state.diagonals.slice();
+    const rowsChecked = this.state.checked.row.slice();
+    const colsChecked = this.state.checked.column.slice();
+    const diagsChecked = this.state.checked.diagonal.slice()
+    ;
     if (this.state.moveCounter > 4) {
-
+      if (valuesInRows.indexOf(3) !== -1) {
+        rowsChecked.forEach((checked, index) => {
+          if (this.state.rows[index] === 3 && !checked) {
+            console.log('check row');
+            rowsChecked[index] = true;
+          }
+        });
+      }
+      if (valuesInCols.indexOf(3) !== -1) {
+        colsChecked.forEach((checked, index) => {
+          if (this.state.columns[index] === 3 && !checked) {
+            console.log('check col');
+            colsChecked[index] = true;
+          }
+        });
+      }
+      if (valuesInDiags.indexOf(3) !== -1) {
+        diagsChecked.forEach((checked, index) => {
+          if (this.state.diagonals[index] === 3 && !checked) {
+            console.log('check diag');
+            diagsChecked[index] = true;
+          }
+        });
+      }
+      this.setState({
+        checked: {
+          row: rowsChecked,
+          column: colsChecked,
+          diagonal: diagsChecked
+        }
+      });
     }
+  }
+
+  incrementRow(row) {
+    const rowIncrement = this.state.rows.slice();
+    rowIncrement[row]++;
+    return rowIncrement;
+  }
+
+  incrementColumn(col) {
+    const columnIncrement = this.state.columns.slice();
+    columnIncrement[col]++;
+    return columnIncrement;
+  }
+
+  incrementDiagonal(row, col, diagArray) {
+    const diagonalIncrement = diagArray;
+    if (row === col && row !== 1) {
+      diagArray[0]++;
+    } else if (row !== col && row !== 1) {
+      diagArray[1]++;
+    } else {
+      diagArray[0]++;
+      diagArray[1]++;
+    }
+    return diagonalIncrement;
   }
 
   setBoard(row, col, value) {
     const updatedBoard = this.state.currentBoard.slice();
     const updateFilled = this.state.filledPositions.slice();
+
     updatedBoard[row][col] = value;
     updateFilled[row][col] = true;
+    const updatedRowCount = this.incrementRow(row);
+    const updatedColumnCount = this.incrementColumn(col);
+    let updatedDiagonalCount = this.state.diagonals.slice();
+    if ((row !== 1 && col !== 1) || (row === 1 && col === 1)) {
+      updatedDiagonalCount = this.incrementDiagonal(row, col, updatedDiagonalCount);
+    }
     this.setState({
       currentBoard: updatedBoard,
       filledPositions: updateFilled,
       isX: !this.state.isX,
-      moveCounter: this.state.moveCounter + 1
+      moveCounter: this.state.moveCounter + 1,
+      rows: updatedRowCount,
+      columns: updatedColumnCount,
+      diagonals: updatedDiagonalCount
     }, this.checkGameOver);
   }
 
