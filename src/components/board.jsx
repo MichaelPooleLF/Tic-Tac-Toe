@@ -15,14 +15,20 @@ class Board extends React.Component {
         [false, false, false],
         [false, false, false]
       ],
-      isX: true
+      isX: true,
+      moveCounter: 0
     };
     this.handleClick = this.handleClick.bind(this);
     this.setBoard = this.setBoard.bind(this);
   }
 
+  checkGameOver() {
+    if (this.state.moveCounter > 4) {
+
+    }
+  }
+
   setBoard(row, col, value) {
-    console.log('click');
     const updatedBoard = this.state.currentBoard.slice();
     const updateFilled = this.state.filledPositions.slice();
     updatedBoard[row][col] = value;
@@ -30,13 +36,14 @@ class Board extends React.Component {
     this.setState({
       currentBoard: updatedBoard,
       filledPositions: updateFilled,
-      isX: !this.state.isX
-    });
+      isX: !this.state.isX,
+      moveCounter: this.state.moveCounter + 1
+    }, this.checkGameOver);
   }
 
   handleClick(event) {
     let currentMove = '';
-    this.state.isX ? currentMove = <i className="fas fa-times x"></i> : currentMove = <i className="far fa-circle o"></i>;
+    currentMove = this.state.isX ? 'x' : 'o';
     switch (event.target.id) {
       case 'top-left':
         this.setBoard(0, 0, currentMove);
