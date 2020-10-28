@@ -10,6 +10,11 @@ class Board extends React.Component {
         ['', '', ''],
         ['', '', '']
       ],
+      filledPositions: [
+        [false, false, false],
+        [false, false, false],
+        [false, false, false]
+      ],
       isX: true
     };
     this.handleClick = this.handleClick.bind(this);
@@ -17,10 +22,14 @@ class Board extends React.Component {
   }
 
   setBoard(row, col, value) {
+    console.log('click');
     const updatedBoard = this.state.currentBoard.slice();
+    const updateFilled = this.state.filledPositions.slice();
     updatedBoard[row][col] = value;
+    updateFilled[row][col] = true;
     this.setState({
       currentBoard: updatedBoard,
+      filledPositions: updateFilled,
       isX: !this.state.isX
     });
   }
@@ -64,9 +73,9 @@ class Board extends React.Component {
       <>
         <h1 className="text-center text-white">TIC TAC TOE</h1>
         <div className="container">
-          <BoardRow position="top" values={this.state.currentBoard[0]} handleClick={this.handleClick}/>
-          <BoardRow position="center" values={this.state.currentBoard[1]} handleClick={this.handleClick}/>
-          <BoardRow position="bottom" values={this.state.currentBoard[2]} handleClick={this.handleClick}/>
+          <BoardRow position="top" values={this.state.currentBoard[0]} filledCells={this.state.filledPositions[0]} handleClick={this.handleClick}/>
+          <BoardRow position="center" values={this.state.currentBoard[1]} filledCells={this.state.filledPositions[1]} handleClick={this.handleClick}/>
+          <BoardRow position="bottom" values={this.state.currentBoard[2]} filledCells={this.state.filledPositions[2]} handleClick={this.handleClick}/>
         </div>
       </>
     );
