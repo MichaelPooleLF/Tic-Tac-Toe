@@ -31,6 +31,7 @@ class Board extends React.Component {
   }
 
   checkGameOver() {
+    const currentBoard = this.state.currentBoard;
     const valuesInRows = this.state.rows.slice();
     const valuesInCols = this.state.columns.slice();
     const valuesInDiags = this.state.diagonals.slice();
@@ -42,8 +43,13 @@ class Board extends React.Component {
       if (valuesInRows.indexOf(3) !== -1) {
         rowsChecked.forEach((checked, index) => {
           if (this.state.rows[index] === 3 && !checked) {
-            console.log('check row');
-            rowsChecked[index] = true;
+            const uniqueValues = new Set();
+            currentBoard[index].forEach(value => {
+              uniqueValues.add(value);
+            });
+            if (uniqueValues.size === 1) {
+              console.log(`${currentBoard[0][0]}`);
+            }
           }
         });
       }
