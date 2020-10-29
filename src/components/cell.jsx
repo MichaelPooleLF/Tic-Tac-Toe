@@ -4,7 +4,7 @@ function Cell(props) {
   let handleClick = null;
   let cellValue = '';
 
-  if (!props.filled) {
+  if (!props.value) {
     handleClick = props.handleClick;
   }
 
