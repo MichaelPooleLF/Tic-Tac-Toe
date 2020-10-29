@@ -37,18 +37,20 @@ class Board extends React.Component {
     const valuesInDiags = this.state.diagonals.slice();
     const rowsChecked = this.state.checked.row.slice();
     const colsChecked = this.state.checked.column.slice();
-    const diagsChecked = this.state.checked.diagonal.slice()
-    ;
+    const diagsChecked = this.state.checked.diagonal.slice();
+    let winner = '';
+
     if (this.state.moveCounter > 4) {
       if (valuesInRows.indexOf(3) !== -1) {
         rowsChecked.forEach((checked, index) => {
           if (this.state.rows[index] === 3 && !checked) {
             const uniqueValues = new Set();
+            rowsChecked[index] = true;
             currentBoard[index].forEach(value => {
               uniqueValues.add(value);
             });
             if (uniqueValues.size === 1) {
-              console.log(`${currentBoard[0][0]}`);
+              winner = currentBoard[index][0];
             }
           }
         });
@@ -56,26 +58,47 @@ class Board extends React.Component {
       if (valuesInCols.indexOf(3) !== -1) {
         colsChecked.forEach((checked, index) => {
           if (this.state.columns[index] === 3 && !checked) {
-            console.log('check col');
             colsChecked[index] = true;
+            const uniqueValues = new Set();
+            currentBoard.forEach(row => {
+              uniqueValues.add(row[index]);
+            });
+            if (uniqueValues.size === 1) {
+              winner = currentBoard[0][index];
+            }
           }
         });
       }
       if (valuesInDiags.indexOf(3) !== -1) {
         diagsChecked.forEach((checked, index) => {
           if (this.state.diagonals[index] === 3 && !checked) {
-            console.log('check diag');
             diagsChecked[index] = true;
+            const uniqueValues = new Set();
+            if (index === 0) {
+              uniqueValues.add(currentBoard[0][0]).add(currentBoard[1][1]).add(currentBoard[2][2]);
+            } else {
+              uniqueValues.add(currentBoard[0][2]).add(currentBoard[1][1]).add(currentBoard[2][0]);
+            }
+            if (uniqueValues.size === 1) {
+              winner = currentBoard[1][1];
+            }
           }
         });
       }
-      this.setState({
-        checked: {
-          row: rowsChecked,
-          column: colsChecked,
-          diagonal: diagsChecked
-        }
-      });
+
+      if (this.state.moveCounter === 9 && !winner) {
+        console.log("cat's game!");
+      } else if (!winner) {
+        this.setState({
+          checked: {
+            row: rowsChecked,
+            column: colsChecked,
+            diagonal: diagsChecked
+          }
+        });
+      } else {
+        console.log('winner!');
+      }
     }
   }
 
