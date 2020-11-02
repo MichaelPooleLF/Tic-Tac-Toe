@@ -6,7 +6,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameOver: true,
+      gameOver: false,
       gameStatus: ''
     };
     this.setGameStatus = this.setGameStatus.bind(this);
