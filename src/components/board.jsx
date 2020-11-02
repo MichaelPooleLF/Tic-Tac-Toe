@@ -89,7 +89,7 @@ class Board extends React.Component {
 
       // checks if there is a winner. If there is, sets state in app.
       if (this.state.moveCounter === 9 && !winner) {
-        console.log("cat's game!");
+        this.props.setGameStatus(true, "Cat's Game!");
       } else if (!winner) {
         this.setState({
           checked: {
@@ -99,7 +99,11 @@ class Board extends React.Component {
           }
         });
       } else {
-        console.log('winner!');
+        if (winner === 'x') {
+          this.props.setGameStatus(true, 'Player One Wins!');
+        } else {
+          this.props.setGameStatus(true, 'Player Two Wins!');
+        }
       }
     }
   }
