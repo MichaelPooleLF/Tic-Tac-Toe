@@ -6,15 +6,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameOver: false,
-      gameStatus: ''
+      gameOver: true,
+      gameStatus: '',
+      board: 'empty'
     };
     this.setGameStatus = this.setGameStatus.bind(this);
   }
 
-  setGameStatus(gameOver, gameStatus) {
+  setGameStatus(gameOver, gameStatus, board) {
     this.setState({
-      gameOver, gameStatus
+      gameOver, gameStatus, board
     });
   }
 
@@ -23,12 +24,12 @@ class App extends React.Component {
       return (
         <>
           <EndGameModal gameStatus={this.state.gameStatus} setGameStatus={this.setGameStatus}/>
-          <Board/>
+          <Board board={this.state.board}/>
         </>
       );
     }
     return (
-      <Board setGameStatus={this.setGameStatus}/>
+      <Board board={this.state.board} setGameStatus={this.setGameStatus}/>
     );
   }
 }

@@ -25,6 +25,22 @@ class Board extends React.Component {
     this.setBoard = this.setBoard.bind(this);
   }
 
+  componentDidMount() {
+    if (this.props.board === 'empty') {
+      this.setState({
+        currentBoard: [
+          ['', '', ''],
+          ['', '', ''],
+          ['', '', '']
+        ]
+      });
+    } else {
+      this.setState({
+        currentBoard: this.props.board
+      });
+    }
+  }
+
   checkGameOver() {
     const currentBoard = this.state.currentBoard;
     const valuesInRows = this.state.rows.slice();
@@ -89,7 +105,7 @@ class Board extends React.Component {
 
       // checks if there is a winner. If there is, sets state in app.
       if (this.state.moveCounter === 9 && !winner) {
-        this.props.setGameStatus(true, "Cat's Game!");
+        this.props.setGameStatus(true, "Cat's Game!", this.state.currentBoard);
       } else if (!winner) {
         this.setState({
           checked: {
@@ -100,9 +116,9 @@ class Board extends React.Component {
         });
       } else {
         if (winner === 'x') {
-          this.props.setGameStatus(true, 'Player One Wins!');
+          this.props.setGameStatus(true, 'Player One Wins!', this.state.currentBoard);
         } else {
-          this.props.setGameStatus(true, 'Player Two Wins!');
+          this.props.setGameStatus(true, 'Player Two Wins!', this.state.currentBoard);
         }
       }
     }
