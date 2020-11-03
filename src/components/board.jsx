@@ -25,18 +25,24 @@ class Board extends React.Component {
     this.setBoard = this.setBoard.bind(this);
   }
 
-  componentDidMount() {
-    if (this.props.board === 'empty') {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.board !== prevProps.board && this.props.gameOver === false) {
       this.setState({
         currentBoard: [
           ['', '', ''],
           ['', '', ''],
           ['', '', '']
-        ]
-      });
-    } else {
-      this.setState({
-        currentBoard: this.props.board
+        ],
+        isX: true,
+        moveCounter: 0,
+        rows: [0, 0, 0],
+        columns: [0, 0, 0],
+        diagonals: [0, 0],
+        checked: {
+          row: [false, false, false],
+          column: [false, false, false],
+          diagonal: [false, false]
+        }
       });
     }
   }
@@ -213,7 +219,7 @@ class Board extends React.Component {
   render() {
     return (
       <>
-        <h1 className="text-center text-white">TIC TAC TOE</h1>
+        {/* <h1 className="text-center text-white">TIC TAC TOE</h1> */}
         <div className="container">
           <BoardRow position="top" values={this.state.currentBoard[0]} handleClick={this.handleClick}/>
           <BoardRow position="center" values={this.state.currentBoard[1]} handleClick={this.handleClick}/>
