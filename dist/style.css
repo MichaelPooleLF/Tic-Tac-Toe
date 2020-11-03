@@ -1,3 +1,10 @@
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .board-row {
   height: 30vh;
 }
@@ -33,7 +40,7 @@ div.cell {
   border: 5px groove whitesmoke
 }
 
-i {
+i.x, i.o {
   font-size: 10rem;
 }
 
@@ -43,4 +50,66 @@ i {
 
 .o {
   color: green;
+}
+
+.end-game-modal {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 1000;
+}
+
+.end-game-modal-content {
+  color: white;
+  position: relative;
+  width: 50%;
+  padding: 2rem 0.5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.hide {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  padding: 0 0.5rem;
+}
+
+.hidden-modal {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+
+.show {
+  cursor: pointer;
+  position: absolute;
+  font-size: 1.5rem;
+  bottom: 10px;
+  right: 10px;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  padding: 0 0.5rem;
 }

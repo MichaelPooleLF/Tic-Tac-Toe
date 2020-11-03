@@ -25,6 +25,28 @@ class Board extends React.Component {
     this.setBoard = this.setBoard.bind(this);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.board !== prevProps.board && this.props.gameOver === false) {
+      this.setState({
+        currentBoard: [
+          ['', '', ''],
+          ['', '', ''],
+          ['', '', '']
+        ],
+        isX: true,
+        moveCounter: 0,
+        rows: [0, 0, 0],
+        columns: [0, 0, 0],
+        diagonals: [0, 0],
+        checked: {
+          row: [false, false, false],
+          column: [false, false, false],
+          diagonal: [false, false]
+        }
+      });
+    }
+  }
+
   checkGameOver() {
     const currentBoard = this.state.currentBoard;
     const valuesInRows = this.state.rows.slice();
@@ -89,7 +111,7 @@ class Board extends React.Component {
 
       // checks if there is a winner. If there is, sets state in app.
       if (this.state.moveCounter === 9 && !winner) {
-        console.log("cat's game!");
+        this.props.setGameStatus(true, "Cat's Game!", this.state.currentBoard);
       } else if (!winner) {
         this.setState({
           checked: {
@@ -99,7 +121,11 @@ class Board extends React.Component {
           }
         });
       } else {
-        console.log('winner!');
+        if (winner === 'x') {
+          this.props.setGameStatus(true, 'Player One Wins!', this.state.currentBoard);
+        } else {
+          this.props.setGameStatus(true, 'Player Two Wins!', this.state.currentBoard);
+        }
       }
     }
   }
@@ -193,7 +219,7 @@ class Board extends React.Component {
   render() {
     return (
       <>
-        <h1 className="text-center text-white">TIC TAC TOE</h1>
+        {/* <h1 className="text-center text-white">TIC TAC TOE</h1> */}
         <div className="container">
           <BoardRow position="top" values={this.state.currentBoard[0]} handleClick={this.handleClick}/>
           <BoardRow position="center" values={this.state.currentBoard[1]} handleClick={this.handleClick}/>
