@@ -4,7 +4,7 @@ function EndGameModal(props) {
   if (props.hidden === true) {
     return (
       <div className="hidden-modal">
-        <p onClick={props.hideModal} className="show">Show<i className="fas fa-chevron-up ml-2"></i></p>
+        <p onClick={props.hideModal} className="show">show<i className="fas fa-chevron-up ml-2"></i></p>
       </div>
     );
   } else {
